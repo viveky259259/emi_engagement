@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "755794002833",
+    "firebase_url": "https://user-engagement-6352e.firebaseio.com",
+    "project_id": "user-engagement-6352e",
+    "storage_bucket": "user-engagement-6352e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755794002833:android:8829e227a785fd32",
+        "android_client_info": {
+          "package_name": "co.stringsway.emi_engagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755794002833-h6j1msk3rql1n9ujkdtionn3jrm1ed6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.stringsway.emi_engagement",
+            "certificate_hash": "26286abff31542c1a0f321c889610837a89fb1b3"
+          }
+        },
+        {
+          "client_id": "755794002833-92ahs3mfm28kqo6eui2dtj4833ip4me0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9ojAO1PwfRzvwSnLsAHoPO3Z18a3VR2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755794002833-92ahs3mfm28kqo6eui2dtj4833ip4me0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "755794002833-ju0rs72dji3o014nd8nrbtpn2v5lqj1n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "co.stringsway.emiEngagement"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755794002833:android:6589643342dae157",
+        "android_client_info": {
+          "package_name": "co.stringsway.emi_user_engagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755794002833-neaithsjo4ed1ka2siugtadk4sdakmij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.stringsway.emi_user_engagement",
+            "certificate_hash": "26286abff31542c1a0f321c889610837a89fb1b3"
+          }
+        },
+        {
+          "client_id": "755794002833-92ahs3mfm28kqo6eui2dtj4833ip4me0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9ojAO1PwfRzvwSnLsAHoPO3Z18a3VR2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755794002833-92ahs3mfm28kqo6eui2dtj4833ip4me0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "755794002833-ju0rs72dji3o014nd8nrbtpn2v5lqj1n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "co.stringsway.emiEngagement"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
