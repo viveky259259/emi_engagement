@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.14.11"
+  connectivity:
+    dependency: "direct main"
+    description:
+      name: connectivity
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.3+2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -69,11 +76,25 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  gradient_text:
+    dependency: "direct main"
+    description:
+      name: gradient_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   matcher:
     dependency: transitive
     description:
@@ -109,6 +130,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  rect_getter:
+    dependency: "direct main"
+    description:
+      name: rect_getter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
+  shared_preferences:
+    dependency: "direct main"
+    description:
+      name: shared_preferences
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.3+1"
   sky_engine:
     dependency: transitive
     description: flutter

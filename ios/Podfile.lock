@@ -9,6 +9,9 @@ PODS:
     - Firebase/Core
     - Firebase/Firestore (~> 6.0)
     - Flutter
+  - connectivity (0.0.1):
+    - Flutter
+    - Reachability
   - Firebase/Auth (6.3.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.1.2)
@@ -124,13 +127,18 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Protobuf (3.8.0)
+  - Reachability (3.2)
+  - shared_preferences (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -151,10 +159,13 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
+    - Reachability
 
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  connectivity:
+    :path: ".symlinks/plugins/connectivity/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
@@ -163,10 +174,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   cloud_firestore: bea98f51ff83b368d2984d3a6b9a6ac8dd89bf63
+  connectivity: c72716e202a1225ec4810740d5cb56b8ae3bf4cc
   Firebase: 8432d732974498afd5987e9001a05f90f1a3d625
   firebase_auth: ba238762663f6b3503cc5468c50d652df1306185
   firebase_core: 44f31f51532812598f0f9f4af0caa705b9edfc19
@@ -187,6 +201,8 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  shared_preferences: 1feebfa37bb57264736e16865e7ffae7fc99b523
 
 PODFILE CHECKSUM: ebd43b443038e611b86ede96e613bd6033c49497
 
