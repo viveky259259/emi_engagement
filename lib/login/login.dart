@@ -1,6 +1,5 @@
 import 'package:emi_engagement/utils/CheckConectivity.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginUi extends StatefulWidget {
   @override
@@ -11,8 +10,11 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final TextEditingController _passwordTextController = TextEditingController();
-  final TextEditingController _confirmPasswordTextController =
-      TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+
+  final FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode _emailFocusNode = FocusNode();
+
   final Map<String, dynamic> _formData = {
     'email': null,
     'password': null,
@@ -30,43 +32,6 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
     super.initState();
   }
 
-  Widget _buildEmailField() {
-    return new TextFormField(
-      decoration: InputDecoration(
-          hintText: "Email",
-          hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
-      keyboardType: TextInputType.emailAddress,
-      validator: (String value) {
-        if (value.isEmpty ||
-            !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                .hasMatch(value)) {
-          return 'Please enter a valid email';
-        }
-      },
-      onSaved: (String value) {
-        _formData['email'] = value;
-      },
-    );
-  }
-
-  Widget _buildPasswordTextField() {
-    return TextFormField(
-      obscureText: true,
-      decoration: InputDecoration(
-          hintText: "Password",
-          hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
-      controller: _passwordTextController,
-      validator: (String value) {
-        if (value.isEmpty || value.length < 6) {
-          return 'Password invalid';
-        }
-      },
-      onSaved: (String value) {
-        _formData['password'] = value;
-      },
-    );
-  }
-
   Widget horizontalLine() => Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: Container(
@@ -81,7 +46,7 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
       connectionStatus.checkConnection().then((hascon) {
         isOffline = !hascon;
         if (!isOffline) {
-//          _submitForm(model.authenticate);
+          _submitForm();
         } else {
           _scaffoldKey.currentState.showSnackBar(
               new SnackBar(content: new Text('No Internet connection')));
@@ -115,16 +80,16 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
             : Container(),
       );
 
-  void _submitForm(Function authenticate) async {
-    if (!_formKey.currentState.validate() || !_formData['acceptTerms']) {
+  void _submitForm() async {
+    if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
-    Map<String, dynamic> successInformation;
+    Map<String, dynamic> successInformation = {"success": true};
 //    successInformation = await authenticate(
 //        _formData['email'], _formData['password'], _authMode);
     if (successInformation['success']) {
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushReplacementNamed(context, '/dashboard');
     } else {
       showDialog(
         context: context,
@@ -156,7 +121,7 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
         body: Stack(
           fit: StackFit.expand,
           children: <Widget>[
-           Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Padding(
@@ -194,7 +159,6 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
                 ],
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(
                   left: 28.0,
@@ -241,7 +205,31 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
                                 style: TextStyle(
                                     fontFamily: "Poppins-Medium",
                                     fontSize: 16)),
-                            _buildEmailField(),
+                            TextFormField(
+                              focusNode: _emailFocusNode,
+                              decoration: InputDecoration(
+                                  hintText: "Email",
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 12.0)),
+                              controller: _emailTextController,
+                              keyboardType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.done,
+                              validator: (String value) {
+                                if (value.isEmpty ||
+                                    !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                                        .hasMatch(value)) {
+                                  return 'Please enter a valid email';
+                                }
+                              },
+                              onSaved: (String value) {
+                                _formData['email'] = value;
+                              },
+                              onFieldSubmitted: (v) {
+                                print("submit");
+                                FocusScope.of(context)
+                                    .requestFocus(_passwordFocusNode);
+                              },
+                            ),
                             SizedBox(
                               height: 16,
                             ),
@@ -249,8 +237,31 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
                                 style: TextStyle(
                                     fontFamily: "Poppins-Medium",
                                     fontSize: 16)),
-                            _buildPasswordTextField(),
-//                              _checkLogorSign(),
+                            TextFormField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  hintText: "Password",
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 12.0)),
+                              controller: _passwordTextController,
+                              focusNode: _passwordFocusNode,
+                              validator: (String value) {
+                                if (value.isEmpty || value.length < 6) {
+                                  return 'Password invalid';
+                                }
+                              },
+                              textInputAction: TextInputAction.done,
+                              onSaved: (String value) {
+                                _formData['password'] = value;
+                              },
+                              onFieldSubmitted: (v) {
+                                print("pass submit");
+                                _checkConn();
+                              },
+                              onEditingComplete: () {
+                                print("pass compelte");
+                              },
+                            ),
                             SizedBox(
                               height: 16,
                             ),

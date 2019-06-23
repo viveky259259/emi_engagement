@@ -1,3 +1,4 @@
+import 'package:emi_engagement/onboarding/onboard.local.dart';
 import 'package:flutter/material.dart';
 import './data.dart';
 import './page_indicator.dart';
@@ -20,6 +21,7 @@ class _MyOnBoardState extends State<OnBoard> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
     _controller = PageController(
       initialPage: currentPage,
     );
@@ -33,17 +35,12 @@ class _MyOnBoardState extends State<OnBoard> with TickerProviderStateMixin {
     _controller.dispose();
     super.dispose();
   }
-  Future checkFirstSeen() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool _seen = (prefs.getBool('seen') ?? false);
 
-    if (_seen) {
-      Navigator.pushNamed(context, '/login');
-    } else {
-      prefs.setBool('seen', true);
-      Navigator.pushNamed(context, '/');
-    }
+  startLogin() async {
+    await AppOnBoardSharedPref.setIsOnBoardShown(true);
+    Navigator.pushReplacementNamed(context, "/login");
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -130,7 +127,7 @@ class _MyOnBoardState extends State<OnBoard> with TickerProviderStateMixin {
                           padding: const EdgeInsets.only(left: 34.0, top: 12.0),
                           child: Transform(
                             transform:
-                            Matrix4.translationValues(0, 50.0 * (1 - y), 0),
+                                Matrix4.translationValues(0, 50.0 * (1 - y), 0),
                             child: Text(
                               page.body,
                               style: TextStyle(
@@ -160,15 +157,15 @@ class _MyOnBoardState extends State<OnBoard> with TickerProviderStateMixin {
                 scale: _scaleAnimation,
                 child: lastPage
                     ? FloatingActionButton(
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    checkFirstSeen();
-                  },
-                )
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          startLogin();
+                        },
+                      )
                     : Container(),
               ),
             ),

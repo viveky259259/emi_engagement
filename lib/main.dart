@@ -1,5 +1,7 @@
+import 'package:emi_engagement/dashboard/dashboard.ui.dart';
 import 'package:emi_engagement/login/login.dart';
 import 'package:emi_engagement/onboarding/onboard.dart';
+import 'package:emi_engagement/splash/splash.ui.dart';
 import 'package:emi_engagement/user_profile/user_profile.dart';
 import 'package:flutter/material.dart';
 
@@ -40,9 +42,11 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: OnBoard(),
+      home: SplashUi(),
       routes: {
         "/login": (context) => LoginUi(),
+        "/dashboard": (context) => DashboardUi(),
+        "/on_board": (context) => OnBoard(),
       },
     );
   }
