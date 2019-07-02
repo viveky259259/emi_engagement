@@ -1,3 +1,4 @@
+import 'package:emi_engagement/chat_bot/chat.bot.ui.dart';
 import 'package:emi_engagement/dashboard/dashboard.ui.dart';
 import 'package:emi_engagement/login/login.dart';
 import 'package:emi_engagement/onboarding/onboard.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SplashUi(),
+      home: ChatBotUi(),
       routes: {
         "/login": (context) => LoginUi(),
         "/dashboard": (context) => DashboardUi(),

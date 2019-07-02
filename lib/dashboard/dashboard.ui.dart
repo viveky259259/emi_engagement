@@ -9,7 +9,7 @@ class DashboardUi extends StatefulWidget {
 class _DashboardUiState extends State<DashboardUi>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
-
+Stepper a;
   @override
   void initState() {
     _controller = AnimationController(vsync: this);
@@ -31,7 +31,9 @@ class _DashboardUiState extends State<DashboardUi>
         centerTitle: true,
         title: Text("Vivek's dashboard"),
       ),
-      body: Center(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        color: Colors.red,
         child: RaisedButton(
           onPressed: () {
             Navigator.of(context)
