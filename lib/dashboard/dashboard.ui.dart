@@ -1,4 +1,6 @@
 import 'package:emi_engagement/chat_bot/chat.bot.ui.dart';
+import 'package:emi_engagement/recommendation/recommendation.model.dart';
+import 'package:emi_engagement/recommendation/widgets/recommendation_item.widget.dart';
 import 'package:flutter/material.dart';
 
 class DashboardUi extends StatefulWidget {
@@ -9,11 +11,23 @@ class DashboardUi extends StatefulWidget {
 class _DashboardUiState extends State<DashboardUi>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
-Stepper a;
+  Stepper a;
+  RecommendationModel recommendationModel;
+
   @override
   void initState() {
     _controller = AnimationController(vsync: this);
     super.initState();
+    recommendationModel = RecommendationModel(
+        "1",
+        "Awesome title",
+        "Awesome sub title",
+        "Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc",
+        ["assets/illustration.png", "assets/illustration.png"],
+        2500.0,
+        3.2,
+        "Ghar ka paper"
+    );
   }
 
   @override
@@ -31,16 +45,8 @@ Stepper a;
         centerTitle: true,
         title: Text("Vivek's dashboard"),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        color: Colors.red,
-        child: RaisedButton(
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => ChatBotUi()));
-          },
-          child: Text("Chat bot"),
-        ),
+      body:Center(
+        child: RecommendationItemWidget(this.recommendationModel),
       ),
     );
   }
