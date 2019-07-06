@@ -5,11 +5,11 @@ class RecommendationModel {
   String description;
   List<String> images;
   double processingFees;
-  double intrestRate;
+  double interestRate;
   String collaterals;
 
   RecommendationModel(this.id, this.title, this.subTitle, this.description,
-      this.images, this.processingFees, this.intrestRate, this.collaterals);
+      this.images, this.processingFees, this.interestRate, this.collaterals);
 
   factory RecommendationModel.fromJSON(Map<String, dynamic> data) {
     return RecommendationModel(
@@ -19,7 +19,7 @@ class RecommendationModel {
         data["description"],
         data["images"],
         data["processing_fee"],
-        data["intrest_rate"],
+        data["interest_rate"],
         data["collaterals"]);
   }
 }

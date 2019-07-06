@@ -84,7 +84,7 @@ class RecommendationItemWidget extends StatelessWidget {
                   padding: EdgeInsets.all(16),
                   child: Center(
                       child: Text(
-                    "@ ${model.intrestRate.toString()}%",
+                    "@ ${model.interestRate.toString()}%",
                     style:
                         TextStyleConstants.secondaryRecommendationIntrestCard,
                   )),

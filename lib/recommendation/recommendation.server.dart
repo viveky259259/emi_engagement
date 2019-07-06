@@ -19,7 +19,7 @@ class RecommendationServer {
       "images": model.images,
       "processing_fee": model.processingFees,
       "created": new DateTime.now().millisecondsSinceEpoch,
-      "interest_rate": model.intrestRate,
+      "interest_rate": model.interestRate,
       "collaterals": model.collaterals
     }).then((val) {
       print("send");
@@ -41,7 +41,7 @@ class RecommendationServer {
       "images": model.images,
       "processing_fee": model.processingFees,
       "created": new DateTime.now().millisecondsSinceEpoch,
-      "interest_rate": model.intrestRate,
+      "interest_rate": model.interestRate,
       "collaterals": model.collaterals,
       "recommendation_id": model.id,
       "user_email": user.email
