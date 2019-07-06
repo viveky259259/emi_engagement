@@ -43,11 +43,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: DashboardUi(),
+      home: ProfileScreen(),
       routes: {
         "/login": (context) => LoginUi(),
         "/dashboard": (context) => DashboardUi(),
         "/on_board": (context) => OnBoard(),
+        "/Profile": (context) => ProfileScreen(),
       },
     );
   }
