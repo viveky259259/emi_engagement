@@ -1,153 +1,59 @@
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
+class ProfileScreen extends StatefulWidget {
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
 
-class ProfileScreen extends StatelessWidget {
-  final Map<String, dynamic> user = {
-    'name': 'Nguyen Duc Duy',
-    'title': 'Software Engineer @ 6Mui',
-    'intersections': [
-      [12.976321, 77.591332],
-      [12.966321, 77.591332],
-      [12.965321, 77.592332],
-      [12.985321, 77.592432],
-      [12.976321, 77.581332],
-      [12.966321, 77.571332],
-      [12.965321, 77.598332],
-      [12.985321, 77.593432]
-    ],
-    'image':
-        'https://www.seducewithpersonality.com/wp-content/uploads/2013/08/Tests-from-women.jpg',
-  };
 
-  final ScrollController controller = ScrollController();
 
-  Widget _buildImageOverlayGradient(BuildContext context) {
-    return Hero(
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: const [Colors.black87, Colors.transparent],
-              begin: Alignment.bottomCenter,
-              end: const Alignment(.0, .3)),
-        ),
-        position: DecorationPosition.foreground,
-        child: Image.network(user['image']),
-      ),
-      tag: 'image-${user['name']}',
+
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+
+Widget customText() => Container(
+
+
     );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      //appBar: AppBar(title: Text('profile'),),
+      body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                _buildImageOverlayGradient(context),
-                Positioned(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                    child: Text(
-                      user['name'],
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  bottom: 10.0,
+            const SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+
+              child: CircularProfileAvatar(
+                'https://avatars0.githubusercontent.com/u/8264639?s=460&v=4',
+                radius: 120,
+                backgroundColor: Colors.green,
+                borderWidth: 10,
+                initialsText: Text(
+                  "AD",
+                  style: TextStyle(fontSize: 40, color: Colors.white),
                 ),
-              ],
+                borderColor: Colors.white,
+                elevation: 5.0,
+                onTap: () {
+                  print('adil');
+                },
+              ),
+
+
             ),
-            Stack(
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 32.0, top: 20.0),
-                      child: Text(
-                        "Hanoi, Vietnam",
-                        style: TextStyle(
-                            fontSize: 24.0, fontWeight: FontWeight.w300),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                      child: Text(
-                        "20",
-                        style: TextStyle(
-                            fontSize: 24.0, fontWeight: FontWeight.w300),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0, vertical: 26.0),
-                      child: Text(
-                        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
-                        style: TextStyle(fontSize: 16.0),
-                        overflow: TextOverflow.clip,
-                      ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  child: HeartButton(userId: 1),
-                  top: -35.0,
-                  right: 16.0,
-                )
-              ],
-              overflow: Overflow.visible,
-            ),
+
           ],
         ),
-      ),
-    );
-  }
-}
+      ) ,
 
-class HeartButton extends StatefulWidget {
-  final int userId;
-
-  const HeartButton({Key key, @required this.userId}) : super(key: key);
-
-  @override
-  _HeartButtonState createState() => _HeartButtonState();
-}
-
-class _HeartButtonState extends State<HeartButton> {
-  bool liked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    if (liked) {
-      return FloatingActionButton(
-        child: Icon(
-          Icons.favorite,
-          color: Colors.red,
-          size: 32.0,
-        ),
-        onPressed: () {
-          setState(() {
-            liked = false;
-          });
-        },
-        backgroundColor: Colors.white,
-      );
-    }
-    return FloatingActionButton(
-      child: Icon(
-        Icons.favorite,
-        color: Colors.white,
-        size: 32.0,
-      ),
-      onPressed: () {
-        setState(() {
-          liked = true;
-        });
-      },
     );
   }
 }
