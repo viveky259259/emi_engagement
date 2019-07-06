@@ -56,12 +56,23 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget> {
                       ),
                       (widget.chatMessageModel.repliedMessage != null &&
                               widget.chatMessageModel.repliedMessage != "")
-                          ? Padding(
-                              padding: const EdgeInsets.only(left: 8.0, top: 4),
-                              child: Text(
-                                widget.chatMessageModel.repliedMessage,
-                                style: TextStyleConstants.secondaryMessageCard,
-                              ))
+                          ? LayoutBuilder(
+                              builder: (context, constraints) {
+                                return Container(
+                                    width: constraints.maxWidth,
+                                    padding: const EdgeInsets.only(
+                                        left: 16.0, top: 8, bottom: 8),
+                                    decoration: BoxDecoration(
+                                        color: Colors.black12,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(16))),
+                                    child: Text(
+                                      widget.chatMessageModel.repliedMessage,
+                                      style: TextStyleConstants
+                                          .secondaryMessageCard,
+                                    ));
+                              },
+                            )
                           : SizedBox()
                     ],
                   )),

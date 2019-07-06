@@ -62,9 +62,26 @@ class RecommendationItemWidget extends StatelessWidget {
                   SizedBox(
                     height: 16,
                   ),
-                  Text(
-                    "Processing Fees:  ${model.processingFees}",
-                    style: TextStyleConstants.secondaryRecommendationCard,
+
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        "Processing Fees:",
+                        style: TextStyleConstants.secondaryRecommendationCard,
+                      ),
+                      SizedBox(width: 8,),
+                      Image.asset(
+                        "assets/rupee-indian.png",
+                        height: 14,
+                        width: 14,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        "${model.processingFees}",
+                        style: TextStyleConstants.secondaryRecommendationCard,
+                      ),
+                    ],
                   )
                 ],
               ),

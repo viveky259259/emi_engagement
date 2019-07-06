@@ -8,4 +8,9 @@ class DatabaseCollections {
 
   //stores user specific recommendations
   static const String USER_RECOMMENDATION_COLLECTION = "user_recommendation";
+
+  static const String LEADERBOARD_COLLECTION = "leaderboard";
+  static const String LOAN_COLLECTION  = "loan";
+
+
 }

@@ -12,19 +12,59 @@ class LoanModel {
   int lapseInstallments;
   DateTime loanSanctionedDate;
   DateTime loanApplyDate;
+  String doumentId;
 
   LoanModel(
-      this.name,
-      this.email,
-      this.mobile,
-      this.loanAmount,
-      this.processingFees,
-      this.interestRate,
-      this.collaterals,
-      this.totalInstallments,
-      this.installmentsPaid,
-      this.amountPaid,
-      this.lapseInstallments,
-      this.loanSanctionedDate,
-      this.loanApplyDate);
+    this.name,
+    this.email,
+    this.mobile,
+    this.loanAmount,
+    this.processingFees,
+    this.interestRate,
+    this.collaterals,
+    this.totalInstallments,
+    this.installmentsPaid,
+    this.amountPaid,
+    this.lapseInstallments,
+    this.loanSanctionedDate,
+    this.loanApplyDate,
+  );
+
+  factory LoanModel.fromJSON(Map<String, dynamic> map) {
+    DateTime loanSanctionedDate =
+        DateTime.fromMicrosecondsSinceEpoch(map["loan_sactioned_date"] * 1000);
+    DateTime loanApplyDate =
+        DateTime.fromMicrosecondsSinceEpoch(map["loan_apply_date"] * 1000);
+    return LoanModel(
+        map["name"],
+        map["email"],
+        map["mobile"],
+        map["loan_amount"],
+        map["processing_fee"],
+        map["interest_rate"],
+        map["collaterals"],
+        map["total_installments"],
+        map["installments_paid"],
+        map["amount_paid"],
+        map["lapse_installments"],
+        loanSanctionedDate,
+        loanApplyDate);
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "name": name,
+      "email": email,
+      "mobile": mobile,
+      "loan_amount": loanAmount,
+      "processing_fee": processingFees,
+      "interest_rate": interestRate,
+      "collaterals": collaterals,
+      "total_installments": totalInstallments,
+      "amount_paid": amountPaid,
+      "lapse_installments": lapseInstallments,
+      "loan_sactioned_date": loanSanctionedDate.millisecondsSinceEpoch,
+      "loan_apply_date": loanSanctionedDate.millisecondsSinceEpoch
+    };
+  }
 }

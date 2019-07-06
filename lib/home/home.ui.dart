@@ -79,7 +79,7 @@ class _HomeUiState extends State<HomeUi> with SingleTickerProviderStateMixin {
           Padding(
             padding: const EdgeInsets.only(left: 16.0, top: 16),
             child:
-                Text("Instalments paid", style: TextStyleConstants.primaryText),
+                Text("Installments paid", style: TextStyleConstants.primaryText),
           ),
           FlutterSlider(
             values: [loanModel.installmentsPaid.toDouble()],
@@ -102,9 +102,15 @@ class _HomeUiState extends State<HomeUi> with SingleTickerProviderStateMixin {
                 Text("Loan", style: TextStyleConstants.primaryText),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0, top: 8),
-                  child: Text(
-                      "\$ ${loanModel.loanAmount} at ${loanModel.interestRate}%",
-                      style: TextStyleConstants.mediumText),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Image.asset("assets/rupee-indian.png",height: 14,width: 14,),
+                      Text(
+                          " ${loanModel.loanAmount} at ${loanModel.interestRate}%",
+                          style: TextStyleConstants.mediumText),
+                    ],
+                  ),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,

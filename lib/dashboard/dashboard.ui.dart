@@ -1,5 +1,6 @@
 import 'package:emi_engagement/chat_bot/chat.bot.ui.dart';
 import 'package:emi_engagement/constants/colors.constants.dart';
+import 'package:emi_engagement/dashboard/storage/local.storage.dart';
 import 'package:emi_engagement/home/home.ui.dart';
 import 'package:emi_engagement/leaderboard/leaderboard.ui.dart';
 import 'package:emi_engagement/loan/loans.ui.dart';
@@ -7,6 +8,7 @@ import 'package:emi_engagement/user_profile/user_model.dart';
 import 'package:emi_engagement/user_profile/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:achievement_view/achievement_view.dart';
 
 class DashboardUi extends StatefulWidget {
   @override
@@ -26,8 +28,34 @@ class _DashboardUiState extends State<DashboardUi>
     _controller = AnimationController(vsync: this);
     super.initState();
     userModel = UserModel("1", "Vivek", "viveky259259@gmail.com", "8097357765");
-
     currentIndex = 0;
+    LocalStorage.storeTodaySFirstOpenDate().then((isStored) {
+      showAchievement(
+          "Congratulations", "You have earned 1 point for opening app today");
+    });
+  }
+
+  showAchievement(String title, String subtitle) {
+    AchievementView(context,
+        title: "$title!", subTitle: subtitle,
+        //onTab: _onTabAchievement,
+        //icon: Icon(Icons.insert_emoticon, color: Colors.white,),
+        //typeAnimationContent: AnimationTypeAchievement.fadeSlideToUp,
+        //borderRadius: 5.0,
+        //color: Colors.blueGrey,
+        //textStyleTitle: TextStyle(),
+        //textStyleSubTitle: TextStyle(),
+        //alignment: Alignment.topCenter,
+        duration: Duration(seconds: 5),
+        isCircle: false,
+        listener: (status) {
+      print(status);
+      //AchievementState.opening
+      //AchievementState.open
+      //AchievementState.closing
+      //AchievementState.closed
+    })
+      ..show();
   }
 
   @override
@@ -86,6 +114,7 @@ class _DashboardUiState extends State<DashboardUi>
           return Colors.blue;
       }
     }
+
     return Scaffold(
       appBar: AppBar(
         leading: null,
@@ -115,22 +144,20 @@ class _DashboardUiState extends State<DashboardUi>
         //new
         hasNotch: true,
         //new
-        hasInk:true,
+        hasInk: true,
 
         //new, gives a cute ink effect
         inkColor: Colors.black12,
         //optional, uses theme color if not specified
         items: <BubbleBottomBarItem>[
           BubbleBottomBarItem(
-              backgroundColor: Colors.red,
+              backgroundColor: ColorConstants.messageCardGradient1,
               icon: Icon(
                 Icons.dashboard,
                 color: Colors.black,
               ),
-              activeIcon: Icon(
-                Icons.dashboard,
-                color: Colors.red,
-              ),
+              activeIcon: Icon(Icons.dashboard,
+                  color: ColorConstants.messageCardGradient1),
               title: Text("Home")),
           BubbleBottomBarItem(
               backgroundColor: Colors.deepPurple,
