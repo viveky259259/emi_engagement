@@ -104,7 +104,7 @@ class _HomeUiState extends State<HomeUi> with SingleTickerProviderStateMixin {
                   padding: const EdgeInsets.only(left: 16.0, top: 8),
                   child: Text(
                       "\$ ${loanModel.loanAmount} at ${loanModel.interestRate}%",
-                      style: TextStyleConstants.medumText),
+                      style: TextStyleConstants.mediumText),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,

@@ -1,5 +1,5 @@
-
 import 'package:emi_engagement/chat_bot/chat.bot.ui.dart';
+import 'package:emi_engagement/constants/colors.constants.dart';
 import 'package:emi_engagement/home/home.ui.dart';
 import 'package:emi_engagement/leaderboard/leaderboard.ui.dart';
 import 'package:emi_engagement/loan/loans.ui.dart';
@@ -27,7 +27,7 @@ class _DashboardUiState extends State<DashboardUi>
     super.initState();
     userModel = UserModel("1", "Vivek", "viveky259259@gmail.com", "8097357765");
 
-    currentIndex=0;
+    currentIndex = 0;
   }
 
   @override
@@ -36,14 +36,19 @@ class _DashboardUiState extends State<DashboardUi>
     super.dispose();
   }
 
-  getUiToDisplay(index){
-    switch(index){
-      case 0: return HomeUi();
-      case 1:return  LoansUi();
-      case 2: return LeaderBoardUi();
-      case 3: return ProfileScreen();
+  getUiToDisplay(index) {
+    switch (index) {
+      case 0:
+        return HomeUi();
+      case 1:
+        return LoansUi();
+      case 2:
+        return LeaderBoardUi();
+      case 3:
+        return ProfileScreen();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     void changePage(int index) {
@@ -51,42 +56,117 @@ class _DashboardUiState extends State<DashboardUi>
         currentIndex = index;
       });
     }
+
+    String getTitleSuffix(int index) {
+      switch (index) {
+        case 0:
+          return "dashboard";
+        case 1:
+          return "loans";
+        case 2:
+          return "leaderboard";
+        case 3:
+          return "profile";
+        default:
+          return "app";
+      }
+    }
+
+    Color getAppBarColor(int index) {
+      switch (index) {
+        case 0:
+          return ColorConstants.messageCardGradient1;
+        case 1:
+          return Colors.red;
+        case 2:
+          return ColorConstants.leaderBoardTopBackground;
+        case 3:
+          return Colors.green;
+        default:
+          return Colors.blue;
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         leading: null,
         primary: true,
         centerTitle: true,
-        title: Text("${userModel.name}'s dashboard"),
+        backgroundColor: getAppBarColor(currentIndex),
+        title: Text("${userModel.name}'s ${getTitleSuffix(currentIndex)}"),
       ),
       body: getUiToDisplay(currentIndex),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ChatBotUi()));
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => ChatBotUi()));
         },
         child: Icon(Icons.chat),
         backgroundColor: Colors.red,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-
       resizeToAvoidBottomPadding: true,
       bottomNavigationBar: BubbleBottomBar(
-          opacity: .2,
-          currentIndex: currentIndex,
-          onTap: changePage,
+        opacity: .2,
+        currentIndex: currentIndex,
+        onTap: changePage,
 //          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-          elevation: 8,
-          fabLocation: BubbleBottomBarFabLocation.end, //new
-          hasNotch: false, //new
-          hasInk: false, //new, gives a cute ink effect
-          inkColor: Colors.black12, //optional, uses theme color if not specified
-      items: <BubbleBottomBarItem>[
-          BubbleBottomBarItem(backgroundColor: Colors.red, icon: Icon(Icons.dashboard, color: Colors.black,), activeIcon: Icon(Icons.dashboard, color: Colors.red,), title: Text("Home")),
-      BubbleBottomBarItem(backgroundColor: Colors.deepPurple, icon: Icon(Icons.access_time, color: Colors.black,), activeIcon: Icon(Icons.access_time, color: Colors.deepPurple,), title: Text("Loans")),
-      BubbleBottomBarItem(backgroundColor: Colors.indigo, icon: Icon(Icons.equalizer, color: Colors.black,), activeIcon: Icon(Icons.equalizer, color: Colors.indigo,), title: Text("Leaderboard")),
-      BubbleBottomBarItem(backgroundColor: Colors.green, icon: Icon(Icons.face, color: Colors.black,), activeIcon: Icon(Icons.face, color: Colors.green,), title: Text("Profile"))
-      ],
-    ),
+        elevation: 8,
+        fabLocation: BubbleBottomBarFabLocation.end,
+        //new
+        hasNotch: true,
+        //new
+        hasInk:true,
+
+        //new, gives a cute ink effect
+        inkColor: Colors.black12,
+        //optional, uses theme color if not specified
+        items: <BubbleBottomBarItem>[
+          BubbleBottomBarItem(
+              backgroundColor: Colors.red,
+              icon: Icon(
+                Icons.dashboard,
+                color: Colors.black,
+              ),
+              activeIcon: Icon(
+                Icons.dashboard,
+                color: Colors.red,
+              ),
+              title: Text("Home")),
+          BubbleBottomBarItem(
+              backgroundColor: Colors.deepPurple,
+              icon: Icon(
+                Icons.access_time,
+                color: Colors.black,
+              ),
+              activeIcon: Icon(
+                Icons.access_time,
+                color: Colors.deepPurple,
+              ),
+              title: Text("Loans")),
+          BubbleBottomBarItem(
+              backgroundColor: Colors.indigo,
+              icon: Icon(
+                Icons.equalizer,
+                color: Colors.black,
+              ),
+              activeIcon: Icon(
+                Icons.equalizer,
+                color: ColorConstants.leaderBoardBackground,
+              ),
+              title: Text("Leaderboard")),
+          BubbleBottomBarItem(
+              backgroundColor: Colors.green,
+              icon: Icon(
+                Icons.face,
+                color: Colors.black,
+              ),
+              activeIcon: Icon(
+                Icons.face,
+                color: Colors.green,
+              ),
+              title: Text("Profile"))
+        ],
+      ),
     );
   }
 }
-
