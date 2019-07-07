@@ -19,23 +19,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new ListTile(
-                  title: Text(
+
+                 Text(
                     'NAME',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  subtitle: Text(
+                 Text(
                     'xyz pqr abc',
-
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
               ],
             ),
           ),
