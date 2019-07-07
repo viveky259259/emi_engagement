@@ -1,12 +1,17 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
-
+import 'package:emi_engagement/user_profile/user_model.dart';
 class ProfileScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+
+
+//  UserModel u1 = UserModel();
+
   Widget customText() => Container(
         child: Card(
           shape: RoundedRectangleBorder(
@@ -17,25 +22,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Padding(
             padding: const EdgeInsets.all(0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                new ListTile(
-                  title: Text(
+                 Text(
                     'NAME',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
+                      color: Colors.black,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  subtitle: Text(
+                 Text(
                     'xyz pqr abc',
-
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 26,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w600 ,
                     ),
                   ),
-                ),
+                const SizedBox(height: 10),
               ],
             ),
           ),
@@ -50,41 +56,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
      //   title: Text('profile'),
       //),
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const SizedBox(height: 40),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: CircularProfileAvatar(
-                  'https://www.kevinsimon.co.uk/wp-content/uploads/2014/11/wpid-wp-1416776451344.gif',
-                  radius: 120,
-                  backgroundColor: Colors.green,
-                  borderWidth: 10,
-                  initialsText: Text(
-                    "AD",
-                    style: TextStyle(fontSize: 40, color: Colors.white),
+                child: Center(
+                  child: CircularProfileAvatar(
+                    'https://cdn4.vectorstock.com/i/1000x1000/14/73/robot-doctor-character-android-with-syringe-in-vector-19361473.jpg',
+                    radius: 120,
+                    backgroundColor: Colors.green,
+                    borderWidth: 10,
+                    initialsText: Text(
+                      "AD",
+                      style: TextStyle(fontSize: 40, color: Colors.white),
+                    ),
+                    borderColor: Colors.green,
+                    elevation: 5.0,
+                    onTap: () {
+                      print('adil');
+                    },
                   ),
-                  borderColor: Colors.white,
-                  elevation: 5.0,
-                  onTap: () {
-                    print('adil');
-                  },
                 ),
               ),
-              customText(),
-              customText(),
-              customText(),
-              customText(),
-              customText(),
-              customText(),
-              customText(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    customText(),
+                    customText(),
+                    customText(),
+                    customText(),
+                    customText(),
+                    customText(),
+                    customText(),
+                  ],
+                ),
+              ),
 
             ],
           ),
-        ),
+
       ),
     );
   }
