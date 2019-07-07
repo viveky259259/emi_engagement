@@ -132,8 +132,9 @@ class _DashboardUiState extends State<DashboardUi>
         primary: true,
         centerTitle: true,
         backgroundColor: getAppBarColor(currentIndex),
-        title: Text("${userModel.name}'s ${getTitleSuffix(currentIndex)}"),
+        title: (userModel!=null)?Text("${userModel.name}'s ${getTitleSuffix(currentIndex)}"):Text("Dashboard"),
       ),
+      backgroundColor: Colors.grey.shade100,
       body: getUiToDisplay(currentIndex),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

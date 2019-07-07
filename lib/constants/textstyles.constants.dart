@@ -19,6 +19,9 @@ class TextStyleConstants {
   static TextStyle primaryTextWhite=TextStyle(
       color: Colors.white,fontSize: 16
   );
+  static TextStyle primaryTextWhiteBold=TextStyle(
+      color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold
+  );
   static TextStyle secondaryText=TextStyle(
       color: Colors.black54,fontSize: 14
   );
@@ -30,6 +33,10 @@ class TextStyleConstants {
   );
   static TextStyle mediumTextWhite=TextStyle(
       color: Colors.white,fontSize: 20
+  );
+
+  static TextStyle mediumTextWhiteBold=TextStyle(
+      color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold
   );
   static TextStyle mediumBoldText=TextStyle(
       color: Colors.black,fontSize: 20,

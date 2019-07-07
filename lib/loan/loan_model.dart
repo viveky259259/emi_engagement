@@ -13,22 +13,25 @@ class LoanModel {
   DateTime loanSanctionedDate;
   DateTime loanApplyDate;
   String doumentId;
+  bool isCompleted;
+  bool isActive;
 
   LoanModel(
-    this.name,
-    this.email,
-    this.mobile,
-    this.loanAmount,
-    this.processingFees,
-    this.interestRate,
-    this.collaterals,
-    this.totalInstallments,
-    this.installmentsPaid,
-    this.amountPaid,
-    this.lapseInstallments,
-    this.loanSanctionedDate,
-    this.loanApplyDate,
-  );
+      this.name,
+      this.email,
+      this.mobile,
+      this.loanAmount,
+      this.processingFees,
+      this.interestRate,
+      this.collaterals,
+      this.totalInstallments,
+      this.installmentsPaid,
+      this.amountPaid,
+      this.lapseInstallments,
+      this.loanSanctionedDate,
+      this.loanApplyDate,
+      this.isActive,
+      this.isCompleted);
 
   factory LoanModel.fromJSON(Map<String, dynamic> map) {
     DateTime loanSanctionedDate =
@@ -48,7 +51,9 @@ class LoanModel {
         map["amount_paid"],
         map["lapse_installments"],
         loanSanctionedDate,
-        loanApplyDate);
+        loanApplyDate,
+        map["is_actice"],
+        map["is_completed"]);
   }
 
   Map<String, dynamic> toMap() {
@@ -60,12 +65,14 @@ class LoanModel {
       "processing_fee": processingFees,
       "interest_rate": interestRate,
       "collaterals": collaterals,
-      "installments_paid":installmentsPaid,
+      "installments_paid": installmentsPaid,
       "total_installments": totalInstallments,
       "amount_paid": amountPaid,
       "lapse_installments": lapseInstallments,
       "loan_sactioned_date": loanSanctionedDate.millisecondsSinceEpoch,
-      "loan_apply_date": loanSanctionedDate.millisecondsSinceEpoch
+      "loan_apply_date": loanSanctionedDate.millisecondsSinceEpoch,
+      "is_active":isActive,
+      "is_completed":isCompleted
     };
   }
 }
