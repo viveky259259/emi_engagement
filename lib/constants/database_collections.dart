@@ -1,7 +1,7 @@
 class DatabaseCollections {
   static const String USER_CHATS = "user_chat";
 
-  static const String USER_COLLECTION = "user";
+  static const String USER_COLLECTION = "users";
 
   //stores common for all recommendations
   static const String RECOMMENDATION_COLLECTION = "recommendation";

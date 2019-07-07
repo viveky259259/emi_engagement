@@ -1,3 +1,4 @@
+import 'package:emi_engagement/loan/widgets/loan_item.widget.dart';
 import 'package:emi_engagement/user_profile/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:emi_engagement/constants/textstyles.constants.dart';
@@ -88,79 +89,7 @@ class _HomeUiState extends State<HomeUi> with SingleTickerProviderStateMixin {
             onDragging: null,
             disabled: true,
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.red.shade400),
-                borderRadius: BorderRadius.circular(16)),
-            padding: EdgeInsets.only(left: 16, bottom: 16, top: 16, right: 16),
-            margin: EdgeInsets.only(left: 24, right: 24, top: 16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text("Loan", style: TextStyleConstants.primaryText),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0, top: 8),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Image.asset("assets/rupee-indian.png",height: 14,width: 14,),
-                      Text(
-                          " ${loanModel.loanAmount} at ${loanModel.interestRate}%",
-                          style: TextStyleConstants.mediumText),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      double paidRate = double.parse(
-                          (loanModel.amountPaid / loanModel.loanAmount)
-                              .toStringAsFixed(2));
-                      return Row(
-                        children: <Widget>[
-                          Container(
-                            height: 20,
-                            width: constraints.maxWidth * paidRate,
-                            decoration: BoxDecoration(
-                                color: Colors.green,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(8),
-                                    bottomLeft: Radius.circular(8))),
-                          ),
-                          Container(
-                            height: 20,
-                            width: 1,
-                            color: Colors.grey,
-//                            margin: EdgeInsets.only(bottom: 8),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red.shade500,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(8),
-                                    bottomRight: Radius.circular(8))),
-                            height: 20,
-                            alignment: Alignment.center,
-                            width: constraints.maxWidth -
-                                constraints.maxWidth * paidRate -
-                                1,
-                            child: Text(
-                              "${loanModel.amountPaid} Paid",
-                              style: TextStyleConstants.primaryTextWhite,
-                            ),
-                          )
-                        ],
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
-          ),
+        LoanItemWidget(loanModel),
           Padding(
             padding: const EdgeInsets.only(left: 16.0, top: 8),
             child: Text("Credit score", style: TextStyleConstants.primaryText),

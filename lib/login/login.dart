@@ -1,3 +1,6 @@
+import 'package:emi_engagement/login/login.local.dart';
+import 'package:emi_engagement/login/login_server.dart';
+import 'package:emi_engagement/user_profile/user_model.dart';
 import 'package:emi_engagement/utils/CheckConectivity.dart';
 import 'package:flutter/material.dart';
 
@@ -18,8 +21,8 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
   final Map<String, dynamic> _formData = {
     'email': null,
     'password': null,
-    'acceptTerms': false
   };
+  bool isLoading=false;
   ConnectionStatusSingleton connectionStatus =
       ConnectionStatusSingleton.getInstance();
   bool isOffline = true;
@@ -55,14 +58,6 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
     });
   }
 
-  void _radio() {
-    setState(() {
-      _isSelected = !_isSelected;
-      _formData['acceptTerms'] = _isSelected;
-      print(_formData['acceptTerms']);
-    });
-  }
-
   Widget radioButton(bool isSelected) => Container(
         width: 22.0,
         height: 22.0,
@@ -85,12 +80,18 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
       return;
     }
     _formKey.currentState.save();
-    Map<String, dynamic> successInformation = {"success": true};
-//    successInformation = await authenticate(
-//        _formData['email'], _formData['password'], _authMode);
+    isLoading = true;
+    setState(() {});
+    var successInformation = await LoginServer()
+        .handleSignIn(_formData["email"], _formData["password"]);
+    isLoading=false;
+setState(() {
+
+});
     if (successInformation['success']) {
       Navigator.pushReplacementNamed(context, '/dashboard');
     } else {
+      isLoading=false;
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -266,7 +267,10 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
                               height: 16,
                             ),
                             Center(
-                              child: Container(
+                              child:(isLoading)?Container(
+//                                width: 24,
+//                                height: 24,
+                                child: CircularProgressIndicator(),): Container(
                                 width: MediaQuery.of(context).size.width,
                                 height: 50,
                                 decoration: BoxDecoration(
@@ -282,7 +286,7 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
                                           offset: Offset(0.0, 8.0),
                                           blurRadius: 8.0)
                                     ]),
-                                child: Material(
+                                child:Material(
                                   color: Colors.transparent,
                                   child: InkWell(
                                     onTap: () => _checkConn(),

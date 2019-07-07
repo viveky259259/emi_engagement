@@ -60,6 +60,7 @@ class LoanModel {
       "processing_fee": processingFees,
       "interest_rate": interestRate,
       "collaterals": collaterals,
+      "installments_paid":installmentsPaid,
       "total_installments": totalInstallments,
       "amount_paid": amountPaid,
       "lapse_installments": lapseInstallments,
