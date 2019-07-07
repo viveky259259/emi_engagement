@@ -95,7 +95,7 @@ class _HomeUiState extends State<HomeUi> with SingleTickerProviderStateMixin {
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           itemCount: loans.length,
-                          physics: ClampingScrollPhysics(),
+                          physics: BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
                             LoanModel model = loans[index];
 
