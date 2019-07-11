@@ -14,6 +14,7 @@ class FAQList extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(9.0),
             child: ExpansionTile(
+
               title: Text(
                 helpcardh.questionsName,
                 style: TextStyle(

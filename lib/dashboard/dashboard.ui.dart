@@ -1,6 +1,7 @@
 import 'package:emi_engagement/chat_bot/chat.bot.ui.dart';
 import 'package:emi_engagement/constants/colors.constants.dart';
 import 'package:emi_engagement/dashboard/storage/local.storage.dart';
+import 'package:emi_engagement/faqPage/ListPage.dart';
 import 'package:emi_engagement/home/home.ui.dart';
 import 'package:emi_engagement/leaderboard/leaderboard.ui.dart';
 import 'package:emi_engagement/loan/loans.ui.dart';
@@ -131,8 +132,19 @@ class _DashboardUiState extends State<DashboardUi>
         leading: null,
         primary: true,
         centerTitle: true,
+
         backgroundColor: getAppBarColor(currentIndex),
-        title: (userModel!=null)?Text("${userModel.name}'s ${getTitleSuffix(currentIndex)}"):Text("Dashboard"),
+        title: (userModel != null)
+            ? Text("${userModel.name}'s ${getTitleSuffix(currentIndex)}")
+            : Text("Dashboard"),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ListPage()));
+            },
+            child: Icon(Icons.help,color: Colors.white,),
+          )
+        ],
       ),
       backgroundColor: Colors.grey.shade100,
       body: getUiToDisplay(currentIndex),
