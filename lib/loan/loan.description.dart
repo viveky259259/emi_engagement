@@ -2,6 +2,7 @@ import 'package:emi_engagement/common_widgets/common_app_bar.dart';
 import 'package:emi_engagement/delegates/date_delegates.dart';
 import 'package:emi_engagement/loan/loan_model.dart';
 import 'package:emi_engagement/loan/loan_payment_model.dart';
+import 'package:emi_engagement/payment/payment_home.dart';
 import 'package:flutter/material.dart';
 
 class LoanDescription extends StatefulWidget {
@@ -36,13 +37,23 @@ class _LoanDescriptionState extends State<LoanDescription> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    loansPaid.forEach((each) {
+    loansPaid.reversed.forEach((each) {
       steps.add(Step(
           title: Text("Installment ${each.numOfInstallment}"),
+          state: StepState.complete,
           subtitle: Text("Amount paid: ${each.amountPaid}"),
           content: Text(
               "${each.name} has paid ${each.amountPaid} on ${DateDelegate.getDateInString(each.dateOfPayment)} for installment # ${each.numOfInstallment}")));
     });
+    DateTime lastDate = loansPaid[loansPaid.length - 1].dateOfPayment;
+    steps.insert(
+        0,
+        Step(
+            state: StepState.indexed,
+            title: Text("Installment ${steps.length + 1}"),
+            subtitle: Text("Amount: ${loansPaid[0].amountPaid}"),
+            content: Text(
+                "${loansPaid[0].name} have to pay ${loansPaid[0].amountPaid} on ${DateDelegate.getDateInString(DateTime(lastDate.year, lastDate.month + 1, lastDate.day))} for installment # ${steps.length + 1}")));
   }
 
   int currentStep = 0;
@@ -380,6 +391,44 @@ class _LoanDescriptionState extends State<LoanDescription> {
                     currentStep++;
                     setState(() {});
                   }
+                },
+                onStepTapped: (index) {
+                  currentStep = index;
+                  setState(() {});
+                },
+                controlsBuilder: (BuildContext context,
+                    {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+                  return Row(
+                    children: <Widget>[
+                      FlatButton(
+                        onPressed: () {
+                          if (currentStep == 0) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Payhome()));
+                          } else
+                            onStepContinue();
+                        },
+                        child: Text(
+                          currentStep == 0 ? 'Pay' : 'CONTINUE',
+                          style: TextStyle(
+                              color: (currentStep == 0)
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                        color: (currentStep == 0)
+                            ? Colors.blue
+                            : Colors.transparent,
+                      ),
+                      (currentStep == 0)
+                          ? SizedBox()
+                          : FlatButton(
+                              onPressed: onStepCancel,
+                              child: const Text('CANCEL'),
+                            ),
+                    ],
+                  );
                 },
                 onStepCancel: () {
                   if (currentStep > 0) {

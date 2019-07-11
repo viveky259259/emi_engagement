@@ -61,7 +61,7 @@ class _ChatBotUiState extends State<ChatBotUi>
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      appBar: CommonAppBar.getCommonAppBar("Assistant"),
+      appBar: CommonAppBar.getCommonAppBar("Assistant",bgColor: ColorConstants.messageCardGradient2),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
