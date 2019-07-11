@@ -37,12 +37,28 @@ class _LeaderBoardUiState extends State<LeaderBoardUi>
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(24),
                       bottomRight: Radius.circular(24))),
-              padding: EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-              child: LeaderBoardItemWidget(
-                "Vivek",
-                1,
-                123,
-                isCircularBorder: true,
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              child: Column(
+                children: <Widget>[
+                  LeaderBoardItemWidget(
+                    "Vivek",
+                    1,
+                    123,
+                    isCircularBorder: true,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.indigo.shade400,
+                        borderRadius: BorderRadius.all(Radius.circular(8))
+                    ),
+                    margin: const EdgeInsets.only(top: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                    child: Text(
+                      "Need 167 more points to platinum card for free!",
+                      style: TextStyleConstants.secondaryTextWhite,
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(

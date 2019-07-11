@@ -24,6 +24,7 @@ class _DashboardUiState extends State<DashboardUi>
   UserModel userModel;
 
   int currentIndex;
+  bool isNotificationRead = false;
 
   @override
   void initState() {
@@ -132,18 +133,34 @@ class _DashboardUiState extends State<DashboardUi>
         leading: null,
         primary: true,
         centerTitle: true,
-
         backgroundColor: getAppBarColor(currentIndex),
         title: (userModel != null)
             ? Text("${userModel.name}'s ${getTitleSuffix(currentIndex)}")
             : Text("Dashboard"),
         actions: <Widget>[
-          FlatButton(
+          IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ListPage()));
+              if (!isNotificationRead) {
+                showAchievement("Congratulations",
+                    "You have earned 1 point for reading notification");
+                isNotificationRead = true;
+              }
             },
-            child: Icon(Icons.help,color: Colors.white,),
-          )
+            icon: Icon(
+              Icons.notifications,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => ListPage()));
+            },
+            icon: Icon(
+              Icons.help,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
       backgroundColor: Colors.grey.shade100,
