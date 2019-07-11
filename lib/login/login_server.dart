@@ -26,26 +26,37 @@ class LoginServer {
 
   Future handleSignIn(String email, String password) async {
     var complete = Completer();
+
     final FirebaseAuth mAuth = FirebaseAuth.instance;
     await mAuth
         .signInWithEmailAndPassword(
             email: email.toLowerCase(), password: password)
         .then((user) {
-      fetchUserDataByEmail(email.toLowerCase()).then((b) {
-        if (b == "error") {
-          complete.complete("error");
-        } else if (b == "no_user_data") {
-          complete.complete("no_user_data");
-        } else
-          complete.complete(b);
+      fetchUserDataByEmail(email.toLowerCase()).then((userModel) {
+        UserSharedPreference.updateUserInformation(
+            userModel.name, userModel.mobile, userModel.email, userModel.uid);
+        Map<String, dynamic> successInformation = {
+          "success": userModel != "error"
+        };
+//        if (b == "error") {
+//          complete.complete("error");
+//        } else if (b == "no_user_data") {
+//          complete.complete("no_user_data");
+//        } else
+        complete.complete(successInformation);
       });
     }).catchError((error) {
+      Map<String, dynamic> successInformation = {"success": false};
+      complete.completeError(successInformation);
+//
 //      complete.completeError(error);
-      handleSignUp(email, password).then((value) {
-        complete.complete(value);
-      }).catchError((e) {
-        complete.completeError(e);
-      });
+//      handleSignUp(email, password).then((value) {
+//        Map<String, dynamic> successInformation = {"success": true};
+//        complete.complete(successInformation);
+//      }).catchError((e) {
+//        Map<String, dynamic> successInformation = {"success": false};
+//        complete.completeError(successInformation);
+//      });
     });
     return complete.future;
   }
@@ -105,8 +116,8 @@ class LoginServer {
       if (data != null) {
         var name = data["name"];
         var email = data["email"];
-
-        UserModel user = UserModel("", name, email, "");
+        var mobile = data["mobile"];
+        UserModel user = UserModel("", name, email, mobile);
         user.uid = value.documents[0].documentID;
         complete.complete(user);
       } else {

@@ -41,6 +41,8 @@ class _ChatBotUiState extends State<ChatBotUi>
   }
 
   sendMessage() {
+    if(messageController.text.length==0)
+      return;
     ChatMessageModel message = ChatMessageModel(
       messageController.text,
       userModel.email,

@@ -4,6 +4,7 @@ import 'package:emi_engagement/dashboard/storage/local.storage.dart';
 import 'package:emi_engagement/home/home.ui.dart';
 import 'package:emi_engagement/leaderboard/leaderboard.ui.dart';
 import 'package:emi_engagement/loan/loans.ui.dart';
+import 'package:emi_engagement/login/login.local.dart';
 import 'package:emi_engagement/user_profile/user_model.dart';
 import 'package:emi_engagement/user_profile/user_profile.dart';
 import 'package:flutter/material.dart';
@@ -27,17 +28,28 @@ class _DashboardUiState extends State<DashboardUi>
   void initState() {
     _controller = AnimationController(vsync: this);
     super.initState();
-    userModel = UserModel("1", "Vivek", "viveky259259@gmail.com", "8097357765");
     currentIndex = 0;
-    LocalStorage.storeTodaySFirstOpenDate().then((isStored) {
-      showAchievement(
-          "Congratulations", "You have earned 1 point for opening app today");
-    });
+    initiateUser();
+  }
+
+  initiateUser() {
+    UserSharedPreference.getLoggedInUser().then((user) {
+      userModel = user;
+      setState(() {});
+      LocalStorage.storeTodaySFirstOpenDate().then((isStored) {
+        if (isStored) {
+          showAchievement("Congratulations",
+              "You have earned 1 point for opening app today");
+          LocalStorage.storeTodaySFirstOpenDate();
+        }
+      });
+    }).catchError((error) {});
   }
 
   showAchievement(String title, String subtitle) {
     AchievementView(context,
-        title: "$title!", subTitle: subtitle,
+        title: "$title!",
+        subTitle: subtitle,
         //onTab: _onTabAchievement,
         //icon: Icon(Icons.insert_emoticon, color: Colors.white,),
         //typeAnimationContent: AnimationTypeAchievement.fadeSlideToUp,
@@ -46,9 +58,8 @@ class _DashboardUiState extends State<DashboardUi>
         //textStyleTitle: TextStyle(),
         //textStyleSubTitle: TextStyle(),
         //alignment: Alignment.topCenter,
-        duration: Duration(seconds: 5),
-        isCircle: false,
-        listener: (status) {
+        duration: Duration(seconds: 3),
+        isCircle: false, listener: (status) {
       print(status);
       //AchievementState.opening
       //AchievementState.open
@@ -121,8 +132,9 @@ class _DashboardUiState extends State<DashboardUi>
         primary: true,
         centerTitle: true,
         backgroundColor: getAppBarColor(currentIndex),
-        title: Text("${userModel.name}'s ${getTitleSuffix(currentIndex)}"),
+        title: (userModel!=null)?Text("${userModel.name}'s ${getTitleSuffix(currentIndex)}"):Text("Dashboard"),
       ),
+      backgroundColor: Colors.grey.shade100,
       body: getUiToDisplay(currentIndex),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

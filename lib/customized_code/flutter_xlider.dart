@@ -1555,7 +1555,7 @@ class FlutterSliderTrackBar {
   const FlutterSliderTrackBar({
     this.inactiveTrackBarColor = const Color(0x110000ff),
     this.activeTrackBarColor = const Color(0xff2196F3),
-    this.activeDisabledTrackBarColor =  Colors.blue,
+    this.activeDisabledTrackBarColor =  Colors.indigo,
     this.inactiveDisabledTrackBarColor = const Color(0xffe5e5e5),
     this.activeTrackBarHeight = 3.5,
     this.inactiveTrackBarHeight = 3,
