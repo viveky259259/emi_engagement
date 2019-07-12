@@ -34,7 +34,14 @@ class LoginServer {
         .then((user) {
       fetchUserDataByEmail(email.toLowerCase()).then((userModel) {
         UserSharedPreference.updateUserInformation(
-            userModel.name, userModel.mobile, userModel.email, userModel.uid);
+            userModel.name,
+            userModel.mobile,
+            userModel.email,
+            userModel.uid,
+            userModel.state,
+            userModel.city,
+            userModel.panCard,
+            userModel.aadharNum);
         Map<String, dynamic> successInformation = {
           "success": userModel != "error"
         };
@@ -105,30 +112,35 @@ class LoginServer {
     return complete.future;
   }
 
-  fetchUserDataByEmail(email) async {
-    Completer complete = Completer();
+  Future<UserModel> fetchUserDataByEmail(email) async {
+    Completer<UserModel> complete = Completer();
     Firestore db = Firestore.instance;
     CollectionReference userRef =
         db.collection(DatabaseCollections.USER_COLLECTION);
-    await userRef.where("email", isEqualTo: email).getDocuments().then((value) {
+    userRef.where("email", isEqualTo: email).getDocuments().then((value) {
       print(value);
       var data = value.documents[0].data;
       if (data != null) {
         var name = data["name"];
         var email = data["email"];
         var mobile = data["mobile"];
-        UserModel user = UserModel("", name, email, mobile);
-        user.uid = value.documents[0].documentID;
+        var city = data["city"];
+        var state = data["state"];
+        var panCard = data["pan_card"];
+        int aadharCard = data["aadhar_num"];
+        UserModel user = UserModel(value.documents[0].documentID, name, email,
+            mobile, city, state, panCard, aadharCard);
+
         complete.complete(user);
       } else {
-        complete.complete("no_user_data");
+        complete.complete(null);
       }
     }).catchError((error) {
       print(error);
       if (error.message == "Invalid value") {
-        complete.complete("no_user_data");
+        complete.complete(null);
       } else
-        complete.complete("error");
+        complete.complete(null);
     });
     return complete.future;
   }

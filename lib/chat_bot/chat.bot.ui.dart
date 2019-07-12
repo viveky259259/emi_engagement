@@ -4,6 +4,7 @@ import 'package:emi_engagement/chat_bot/widgets/chat.message.widget.dart';
 import 'package:emi_engagement/common_widgets/common_app_bar.dart';
 import 'package:emi_engagement/constants/colors.constants.dart';
 import 'package:emi_engagement/constants/database_collections.dart';
+import 'package:emi_engagement/login/login.local.dart';
 import 'package:emi_engagement/user_profile/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,18 +21,24 @@ class _ChatBotUiState extends State<ChatBotUi>
   CollectionReference reference;
   List<ChatMessageModel> chats = [];
   ScrollController scrollController;
-  UserModel userModel = UserModel("", "Vievk", "viek@email.com", "8097357765");
+  UserModel userModel;
   TextEditingController messageController = TextEditingController();
   bool isBotEnabled = false;
   String repliedOldMessage = "";
+  bool isLoading = false;
 
   @override
   void initState() {
     _controller = AnimationController(vsync: this);
-    reference = db.collection(DatabaseCollections.USER_CHATS);
     scrollController = ScrollController();
 
     super.initState();
+    reference = db.collection(DatabaseCollections.USER_CHATS);
+
+    UserSharedPreference.getLoggedInUser().then((user) {
+      userModel = user;
+      setState(() {});
+    }).catchError((error) {});
   }
 
   @override
@@ -41,15 +48,10 @@ class _ChatBotUiState extends State<ChatBotUi>
   }
 
   sendMessage() {
-    if(messageController.text.length==0)
-      return;
-    ChatMessageModel message = ChatMessageModel(
-      messageController.text,
-      userModel.email,
-      userModel.name,
-      isBotEnabled,
-      DateTime.now(),repliedMessage: repliedOldMessage
-    );
+    if (messageController.text.length == 0) return;
+    ChatMessageModel message = ChatMessageModel(messageController.text,
+        userModel.email, userModel.name, isBotEnabled, DateTime.now(),
+        repliedMessage: repliedOldMessage);
     ChatServer.addMessageToServer(
         message, userModel, (isBotEnabled) ? repliedOldMessage : "");
     repliedOldMessage = "";
@@ -61,43 +63,48 @@ class _ChatBotUiState extends State<ChatBotUi>
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
-      appBar: CommonAppBar.getCommonAppBar("Assistant",bgColor: ColorConstants.messageCardGradient2),
+      appBar: CommonAppBar.getCommonAppBar("Assistant",
+          bgColor: ColorConstants.messageCardGradient2),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Expanded(
-            child: StreamBuilder(
-              stream: reference
-                  .where("email", isEqualTo: userModel.email)
-                  .orderBy("created", descending: true)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                var snapshots =
-                    snapshot.hasData ? snapshot.data.documents : null;
+          (userModel != null)
+              ? Expanded(
+                  child: StreamBuilder(
+                    stream: reference
+                        .where("email", isEqualTo: userModel.email)
+                        .orderBy("created", descending: true)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      var snapshots =
+                          snapshot.hasData ? snapshot.data.documents : null;
 
-                return !snapshot.hasData
-                    ? Center(
-                        child: Text(
-                          "No Chat History. Start converation!!",
-                          style: TextStyle(fontSize: 20.0, color: Colors.black),
-                        ),
-                      )
-                    : ListView.builder(
-                        itemCount: snapshots.length,
-                        reverse: true,
-                        itemBuilder: (context, index) {
-                          if (snapshots == null) return Container();
-                          Map<String, dynamic> dataMap = snapshots[index].data;
+                      return !snapshot.hasData
+                          ? Center(
+                              child: Text(
+                                "No Chat History. Start converation!!",
+                                style: TextStyle(
+                                    fontSize: 20.0, color: Colors.black),
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: snapshots.length,
+                              reverse: true,
+                              itemBuilder: (context, index) {
+                                if (snapshots == null) return Container();
+                                Map<String, dynamic> dataMap =
+                                    snapshots[index].data;
 
-                          ChatMessageModel chat =
-                              ChatMessageModel.fromJson(dataMap);
-                          if (index == 0)
-                            repliedOldMessage = chat.message;
-                          return ChatMessageWidget(chat);
-                        });
-              },
-            ),
-          ),
+                                ChatMessageModel chat =
+                                    ChatMessageModel.fromJson(dataMap);
+                                if (index == 0)
+                                  repliedOldMessage = chat.message;
+                                return ChatMessageWidget(chat);
+                              });
+                    },
+                  ),
+                )
+              : Center(child: CircularProgressIndicator()),
           Row(
             children: <Widget>[
               Expanded(
