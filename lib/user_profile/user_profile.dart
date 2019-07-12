@@ -12,7 +12,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 //  UserModel u1 = UserModel();
 
-  Widget customText() => Container(
+  Widget customText(String s, String St) => Container(
+
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
@@ -25,8 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                 Text(
-                    'NAME',
+                 Text( s,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -34,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                  Text(
-                    'xyz pqr abc',
+                    St,
                     style: TextStyle(
                       fontSize: 26,
                       color: Colors.grey,
@@ -85,13 +85,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: <Widget>[
-                    customText(),
-                    customText(),
-                    customText(),
-                    customText(),
-                    customText(),
-                    customText(),
-                    customText(),
+                    customText("NAME","Vivek Yadav"),
+                    customText("LOAN TAKEN","2"),
+                    customText("LOAN TYPE","HOME LOAN"),
+
                   ],
                 ),
               ),
