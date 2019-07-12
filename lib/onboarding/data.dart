@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 var pageList = [
   PageModel(
       imageUrl: "assets/illustration.png",
-      title: "MUSIC",
-      body: "EXPERIENCE WICKED PLAYLISTS",
+      title: "WELCOME",
+      body: "TO ADITYA BIRLA LOAN APP",
       titleGradient: gradients[0]),
   PageModel(
       imageUrl: "assets/illustration2.png",
-      title: "SPA",
-      body: "FEEL THE MAGIC OF WELLNESS",
+      title: "ACCOUNT OVERVIEW",
+      body: "REVIEW LOAN STATUS,PENDING BALANCE AND MORE.",
       titleGradient: gradients[1]),
   PageModel(
       imageUrl: "assets/illustration3.png",
-      title: "TRAVEL",
-      body: "LET'S HIKE UP",
+      title: "LOAN HISTORY",
+      body: "PREVIEW LOAN HISTORY WITH ONE CLICK.",
       titleGradient: gradients[2]),
 ];
 
