@@ -87,12 +87,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: <Widget>[
                     customText("NAME","Vivek Yadav"),
                     customText("LOAN TAKEN","2"),
+                    customText("LOAN TYPE","HOME LOAN"),
                     customText("CITY","MUMBAI"),
                     customText("STATE","MAHARASHTRA"),
                     customText("PAN NO","ABCD1234F"),
                     customText("AADHAR NO","548550008000"),
                     customText("DOB","12/08/1997"),
-                    customText("LOAN TYPE","HOME LOAN"),
+                    
                     
 
                   ],
