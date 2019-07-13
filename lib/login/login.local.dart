@@ -65,9 +65,24 @@ class UserSharedPreference {
     String panCard = prefs.getString(_LOGGED_IN_USER_PAN_CARD);
     int aadharNum = prefs.getInt(_LOGGED_IN_USER_AADHAR_NUM);
 
-    UserModel userModel =
-        UserModel(uid, name, email, mobile, city, state, panCard, aadharNum);
+    UserModel userModel = UserModel(
+        uid, name, email, mobile, city, state, panCard, aadharNum,
+        dob: DateTime(1996, 7, 13));
     completer.complete(userModel);
     return completer.future;
+  }
+
+  static removeLoggedInUser() async {
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    prefs.remove(_LOGGED_IN_USER_EMAIL_KEY);
+    prefs.remove(_LOGGED_IN_USER_MOBILE_KEY);
+    prefs.remove(_LOGGED_IN_USER_NAME_KEY);
+    prefs.remove(_LOGGED_IN_USER_UID_KEY);
+    prefs.remove(_LOGGED_IN_USER_CITY);
+    prefs.remove(_LOGGED_IN_USER_STATE);
+    prefs.remove(_LOGGED_IN_USER_PAN_CARD);
+    prefs.remove(_LOGGED_IN_USER_AADHAR_NUM);
+    return;
   }
 }

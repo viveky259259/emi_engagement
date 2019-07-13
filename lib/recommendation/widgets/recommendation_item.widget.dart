@@ -27,17 +27,22 @@ class RecommendationItemWidget extends StatelessWidget {
             ])),
         child: Stack(
           children: <Widget>[
-            Positioned(
-              right: -50,
-              child: Container(
-                width: 150,
-                height: 200,
-                alignment: Alignment.topRight,
-                child: Transform(
-                  transform: Matrix4.rotationY(3.14),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: ClipRRect(
+                borderRadius: new BorderRadius.circular(16.0),
+
+//                decoration: BoxDecoration(
+//                  borderRadius: BorderRadius.all(Radius.circular(16)),
+//                ),
+                child: Opacity(
+                  opacity: 0.4,
                   child: Image.asset(
                     model.images[0],
                     fit: BoxFit.fill,
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
                   ),
                 ),
               ),
@@ -50,27 +55,29 @@ class RecommendationItemWidget extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "${model.title}",
-                    style: TextStyleConstants.primaryRecommendationCard,
+                    style: TextStyleConstants.primaryRecommendationCardShadows,
+
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   Text(
                     "${model.subTitle}",
-                    style: TextStyleConstants.secondaryRecommendationCard,
+                    style: TextStyleConstants.secondaryRecommendationCardShadow,
                   ),
                   SizedBox(
                     height: 16,
                   ),
-
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
                         "Processing Fees:",
-                        style: TextStyleConstants.secondaryRecommendationCard,
+                        style: TextStyleConstants.secondaryRecommendationCardShadow,
                       ),
-                      SizedBox(width: 8,),
+                      SizedBox(
+                        width: 8,
+                      ),
                       Image.asset(
                         "assets/rupee-indian.png",
                         height: 14,
@@ -79,7 +86,7 @@ class RecommendationItemWidget extends StatelessWidget {
                       ),
                       Text(
                         "${model.processingFees}",
-                        style: TextStyleConstants.secondaryRecommendationCard,
+                        style: TextStyleConstants.secondaryRecommendationCardShadow,
                       ),
                     ],
                   )
@@ -87,24 +94,24 @@ class RecommendationItemWidget extends StatelessWidget {
               ),
             ),
             Positioned(
-//                top: 16,
-                right: 0,
+                top: 16,
+                right: 16,
+
                 child: Container(
-                  height: 100,
-                  width: 100,
+//                  height: 75,
+//                  width:75,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(50)),
                       gradient: LinearGradient(colors: [
                         ColorConstants.messageCardGradient1,
                         ColorConstants.messageCardGradient2
                       ])),
-                  padding: EdgeInsets.all(16),
-                  child: Center(
-                      child: Text(
+                  padding: EdgeInsets.all(8),
+                  child: Text(
                     "@ ${model.interestRate.toString()}%",
                     style:
-                        TextStyleConstants.secondaryRecommendationIntrestCard,
-                  )),
+                    TextStyleConstants.secondaryRecommendationIntrestCard,
+                  ),
                 ))
           ],
         ),

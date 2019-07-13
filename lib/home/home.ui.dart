@@ -31,23 +31,31 @@ class _HomeUiState extends State<HomeUi> with SingleTickerProviderStateMixin {
     super.initState();
     recommendations.add(recommendationModel = RecommendationModel(
         "1",
-        "Awesome title",
-        "Awesome sub title",
-        "Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc",
-        ["assets/illustration.png", "assets/illustration.png"],
+        "Home Loan",
+        "Instant Loan",
+        "Easy and hassel free home loan transfer. Apply now and save on intrest rate",
+        ["assets/bg3.jpg", "assets/bg3.jpg"],
         2500.0,
         3.2,
         "Ghar ka paper"));
     recommendations.add(recommendationModel = RecommendationModel(
-        "1",
-        "Awesome title",
-        "Awesome sub title",
-        "Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc Awesome description desc",
-        ["assets/illustration.png", "assets/illustration.png"],
+        "2",
+        "Car Loan",
+        "Easy Loan",
+        "Easy and hassel free car transfer. Apply now and save on intrest rate",
+        ["assets/bg1.jpg", "assets/bg1.jpg"],
         4500.0,
         5.2,
         "Ghar ka paper"));
-
+    recommendations.add(recommendationModel = RecommendationModel(
+        "3",
+        "Personal Loan",
+        "Intrest Free Loan",
+        "Easy and hassel free personal transfer. Apply now and save on intrest rate",
+        ["assets/bg2.jpg", "assets/bg2.jpg"],
+        4500.0,
+        0.0,
+        "Ghar ka paper"));
     creditModel = CreditModel("viveky259259@gmail.com", 765, "Good",
         "Paisa Bazar", DateTime(2019, 5, 23));
 
@@ -65,6 +73,18 @@ class _HomeUiState extends State<HomeUi> with SingleTickerProviderStateMixin {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  bool isBirthDayToday(DateTime date) {
+    if (date == null) return false;
+    DateTime curr = DateTime.now();
+    if (curr.month == date.month && curr.day == date.day) {
+      if (curr.year == date.year)
+        return false;
+      else
+        return true;
+    }
+    return false;
   }
 
   @override
@@ -111,12 +131,97 @@ class _HomeUiState extends State<HomeUi> with SingleTickerProviderStateMixin {
                                     onDragging: null,
                                     disabled: true,
                                   ),
-                                  LoanItemWidget(model,isColorFulRequired: true,),
+                                  LoanItemWidget(
+                                    model,
+                                    isColorFulRequired: true,
+                                  ),
                                 ],
                               ),
                             );
                           }),
                     ),
+          (isBirthDayToday(
+                  (userModel != null) ? userModel.dob : DateTime.now()))
+              ? Container(
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.pinkAccent),
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child: ClipRRect(
+                          borderRadius: new BorderRadius.circular(8.0),
+                          child: Opacity(
+                            opacity: 0.4,
+                            child: Image.asset(
+                              "assets/bg4.jpeg",
+                              fit: BoxFit.fitWidth,
+//                              height: MediaQuery.of(context).size.height,
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.cake,
+                                  color: Colors.deepOrange,
+                                ),
+                                Icon(
+                                  Icons.cake,
+                                  color: Colors.deepOrange,
+                                ),
+                                Icon(
+                                  Icons.cake,
+                                  color: Colors.deepOrange,
+                                ),
+                                Icon(
+                                  Icons.cake,
+                                  color: Colors.deepOrange,
+                                ),
+                                Icon(
+                                  Icons.cake,
+                                  color: Colors.deepOrange,
+                                ),
+                                Icon(
+                                  Icons.cake,
+                                  color: Colors.deepOrange,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            RichText(
+                                text: TextSpan(children: [
+                              TextSpan(
+                                  text: "Happy Birthday ",
+                                  style: TextStyleConstants.birthday),
+                              TextSpan(
+                                  text: "${userModel.name}. ",
+                                  style: TextStyleConstants.birthdayMedium),
+                              TextSpan(
+                                  text: "Have a nice day",
+                                  style: TextStyleConstants.birthday)
+                            ])),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : SizedBox(),
           Padding(
             padding: const EdgeInsets.only(left: 16.0, top: 8),
             child: Text("Credit score", style: TextStyleConstants.primaryText),
@@ -135,7 +240,9 @@ class _HomeUiState extends State<HomeUi> with SingleTickerProviderStateMixin {
                     color: Color(0xaa679f98),
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(16))),
-              padding: EdgeInsets.only(top: 16,),
+              padding: EdgeInsets.only(
+                top: 16,
+              ),
 //              margin: EdgeInsets.symmetric(vertical: 4, horizontal: 24),
               child: Stack(
                 children: <Widget>[

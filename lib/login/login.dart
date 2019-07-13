@@ -22,7 +22,7 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
     'email': null,
     'password': null,
   };
-  bool isLoading=false;
+  bool isLoading = false;
   ConnectionStatusSingleton connectionStatus =
       ConnectionStatusSingleton.getInstance();
   bool isOffline = true;
@@ -45,6 +45,7 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
       );
 
   void _checkConn() {
+    FocusScope.of(context).requestFocus(FocusNode());
     setState(() {
       connectionStatus.checkConnection().then((hascon) {
         isOffline = !hascon;
@@ -84,14 +85,12 @@ class _LoginUiState extends State<LoginUi> with SingleTickerProviderStateMixin {
     setState(() {});
     var successInformation = await LoginServer()
         .handleSignIn(_formData["email"], _formData["password"]);
-    isLoading=false;
-setState(() {
-
-});
+    isLoading = false;
+    setState(() {});
     if (successInformation['success']) {
       Navigator.pushReplacementNamed(context, '/dashboard');
     } else {
-      isLoading=false;
+      isLoading = false;
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -114,220 +113,220 @@ setState(() {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        key: _scaffoldKey,
-        backgroundColor: Colors.white,
-        resizeToAvoidBottomPadding: true,
-        body: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                  child: Image.asset("assets/image_01.png"),
-                ),
-                Expanded(
-                  child: Container(),
-                ),
-                Image.asset("assets/image_02.png")
-              ],
-            ),
-            Positioned(
-              top: 48,
+    return Scaffold(
+      key: _scaffoldKey,
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomPadding: true,
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: Image.asset("assets/image_01.png"),
+              ),
+              Expanded(
+                child: Container(),
+              ),
+              Image.asset("assets/image_02.png")
+            ],
+          ),
+          Positioned(
+            top: 48,
 //              left: 24,
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                children: <Widget>[
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              children: <Widget>[
 //                  Image.asset(
 //                    "assets/logo.png",
 //                    width: 110,
 //                    height: 110,
 //                  ),
-                  Expanded(
-                    child: Text("Aditya Birla Finance ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: "Poppins-Bold",
-                            fontSize: 32,
+                Expanded(
+                  child: Text("Aditya Birla Finance ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: "Poppins-Bold",
+                          fontSize: 32,
 //                            color: Colors.,
 //                            letterSpacing: .6,
 
-                            fontWeight: FontWeight.bold)),
-                  )
+                          fontWeight: FontWeight.bold)),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                left: 28.0,
+                right: 28.0,
+                top: MediaQuery.of(context).size.height / 3),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 360,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black12,
+                              offset: Offset(0.0, 15.0),
+                              blurRadius: 15.0),
+                          BoxShadow(
+                              color: Colors.black12,
+                              offset: Offset(0.0, -10.0),
+                              blurRadius: 10.0),
+                        ]),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text('Login',
+                              style: TextStyle(
+                                  fontSize: 32,
+                                  fontFamily: "Poppins-Bold",
+                                  letterSpacing: .6)),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          Text("Email",
+                              style: TextStyle(
+                                  fontFamily: "Poppins-Medium", fontSize: 16)),
+                          TextFormField(
+                            focusNode: _emailFocusNode,
+                            decoration: InputDecoration(
+                                hintText: "Email",
+                                hintStyle: TextStyle(
+                                    color: Colors.grey, fontSize: 12.0)),
+                            controller: _emailTextController,
+                            keyboardType: TextInputType.emailAddress,
+                            textInputAction: TextInputAction.done,
+                            validator: (String value) {
+                              if (value.isEmpty ||
+                                  !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                                      .hasMatch(value)) {
+                                return 'Please enter a valid email';
+                              }
+                            },
+                            onSaved: (String value) {
+                              _formData['email'] = value;
+                            },
+                            onFieldSubmitted: (v) {
+                              print("submit");
+                              FocusScope.of(context)
+                                  .requestFocus(_passwordFocusNode);
+                            },
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          Text("PassWord",
+                              style: TextStyle(
+                                  fontFamily: "Poppins-Medium", fontSize: 16)),
+                          TextFormField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                hintText: "Password",
+                                hintStyle: TextStyle(
+                                    color: Colors.grey, fontSize: 12.0)),
+                            controller: _passwordTextController,
+                            focusNode: _passwordFocusNode,
+                            validator: (String value) {
+                              if (value.isEmpty || value.length < 6) {
+                                return 'Password invalid';
+                              }
+                            },
+                            textInputAction: TextInputAction.done,
+                            onSaved: (String value) {
+                              _formData['password'] = value;
+                            },
+                            onFieldSubmitted: (v) {
+                              print("pass submit");
+                              _checkConn();
+                            },
+                            onEditingComplete: () {
+                              print("pass compelte");
+                            },
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          Center(
+                            child: (isLoading)
+                                ? Container(
+//                                width: 24,
+//                                height: 24,
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        gradient: LinearGradient(colors: [
+                                          Color(0xFF17ead9),
+                                          Color(0xFF6078ea)
+                                        ]),
+                                        borderRadius:
+                                            BorderRadius.circular(6.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Color(0xFF6078ea)
+                                                  .withOpacity(.3),
+                                              offset: Offset(0.0, 8.0),
+                                              blurRadius: 8.0)
+                                        ]),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: InkWell(
+                                        onTap: () => _checkConn(),
+                                        highlightColor: Colors.blue,
+                                        child: Center(
+                                          child: Text('SIGNIN',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: "Poppins-Bold",
+                                                  fontSize: 20,
+                                                  letterSpacing: 1.0)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Text(
+                                'Forgot Password?',
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontFamily: "Poppins-Medium",
+                                    fontSize: 16),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: 28.0,
-                  right: 28.0,
-                  top: MediaQuery.of(context).size.height / 3),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 360,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8.0),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12,
-                                offset: Offset(0.0, 15.0),
-                                blurRadius: 15.0),
-                            BoxShadow(
-                                color: Colors.black12,
-                                offset: Offset(0.0, -10.0),
-                                blurRadius: 10.0),
-                          ]),
-                      child: Padding(
-                        padding:
-                            EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text('Login',
-                                style: TextStyle(
-                                    fontSize: 32,
-                                    fontFamily: "Poppins-Bold",
-                                    letterSpacing: .6)),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Text("Email",
-                                style: TextStyle(
-                                    fontFamily: "Poppins-Medium",
-                                    fontSize: 16)),
-                            TextFormField(
-                              focusNode: _emailFocusNode,
-                              decoration: InputDecoration(
-                                  hintText: "Email",
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey, fontSize: 12.0)),
-                              controller: _emailTextController,
-                              keyboardType: TextInputType.emailAddress,
-                              textInputAction: TextInputAction.done,
-                              validator: (String value) {
-                                if (value.isEmpty ||
-                                    !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                                        .hasMatch(value)) {
-                                  return 'Please enter a valid email';
-                                }
-                              },
-                              onSaved: (String value) {
-                                _formData['email'] = value;
-                              },
-                              onFieldSubmitted: (v) {
-                                print("submit");
-                                FocusScope.of(context)
-                                    .requestFocus(_passwordFocusNode);
-                              },
-                            ),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Text("PassWord",
-                                style: TextStyle(
-                                    fontFamily: "Poppins-Medium",
-                                    fontSize: 16)),
-                            TextFormField(
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                  hintText: "Password",
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey, fontSize: 12.0)),
-                              controller: _passwordTextController,
-                              focusNode: _passwordFocusNode,
-                              validator: (String value) {
-                                if (value.isEmpty || value.length < 6) {
-                                  return 'Password invalid';
-                                }
-                              },
-                              textInputAction: TextInputAction.done,
-                              onSaved: (String value) {
-                                _formData['password'] = value;
-                              },
-                              onFieldSubmitted: (v) {
-                                print("pass submit");
-                                _checkConn();
-                              },
-                              onEditingComplete: () {
-                                print("pass compelte");
-                              },
-                            ),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Center(
-                              child:(isLoading)?Container(
-//                                width: 24,
-//                                height: 24,
-                                child: CircularProgressIndicator(),): Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(colors: [
-                                      Color(0xFF17ead9),
-                                      Color(0xFF6078ea)
-                                    ]),
-                                    borderRadius: BorderRadius.circular(6.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color:
-                                              Color(0xFF6078ea).withOpacity(.3),
-                                          offset: Offset(0.0, 8.0),
-                                          blurRadius: 8.0)
-                                    ]),
-                                child:Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    onTap: () => _checkConn(),
-                                    highlightColor: Colors.blue,
-                                    child: Center(
-                                      child: Text('SIGNIN',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: "Poppins-Bold",
-                                              fontSize: 20,
-                                              letterSpacing: 1.0)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                Text(
-                                  'Forgot Password?',
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontFamily: "Poppins-Medium",
-                                      fontSize: 16),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
