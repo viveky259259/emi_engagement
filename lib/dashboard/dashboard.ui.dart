@@ -39,7 +39,7 @@ class _DashboardUiState extends State<DashboardUi>
       userModel = user;
       setState(() {});
       LocalStorage.storeTodaySFirstOpenDate().then((isStored) {
-        if (isStored) {
+        if (isStored != null && isStored) {
           showAchievement("Congratulations",
               "You have earned 1 point for opening app today");
           LocalStorage.storeTodaySFirstOpenDate();
@@ -52,21 +52,9 @@ class _DashboardUiState extends State<DashboardUi>
     AchievementView(context,
         title: "$title!",
         subTitle: subtitle,
-        //onTab: _onTabAchievement,
-        //icon: Icon(Icons.insert_emoticon, color: Colors.white,),
-        //typeAnimationContent: AnimationTypeAchievement.fadeSlideToUp,
-        //borderRadius: 5.0,
-        //color: Colors.blueGrey,
-        //textStyleTitle: TextStyle(),
-        //textStyleSubTitle: TextStyle(),
-        //alignment: Alignment.topCenter,
         duration: Duration(seconds: 3),
         isCircle: false, listener: (status) {
       print(status);
-      //AchievementState.opening
-      //AchievementState.open
-      //AchievementState.closing
-      //AchievementState.closed
     })
       ..show();
   }

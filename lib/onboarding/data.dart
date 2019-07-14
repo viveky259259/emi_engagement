@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 var pageList = [
   PageModel(
-      imageUrl: "assets/illustration.png",
+      imageUrl: "assets/image_01.png",
       title: "WELCOME",
       body: "TO ADITYA BIRLA LOAN APP",
       titleGradient: gradients[0]),
