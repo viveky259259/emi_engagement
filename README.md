@@ -72,3 +72,4 @@ This screen shows recommendations by app to user.<br>
 
 
 
+Feel free to raise any PR. <b>If you liked the project don't forget to star and fork the repository</b>
