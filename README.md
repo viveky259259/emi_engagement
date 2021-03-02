@@ -1,16 +1,10 @@
-# emi_engagement
+#Loan Engagement Application
+This is a gamified application for loan repayment. Users gets points for using the application. 
 
-A new Flutter application.
+Lets see what our app can give you.
 
-## Getting Started
+## Login Screen
+User can log in to application using email and password
+Test Email: <b>viveky259259@gmail.com</b>
+Test Password: <b>111111</b>
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
